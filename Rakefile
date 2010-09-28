@@ -13,21 +13,14 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "capistrano-mountaintop"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Announce capistrano deploys from a mountaintop with campfire}
+  gem.description = %Q{Announce capistrano deploys from a mountaintop with campfire}
   gem.email = "josh@technicalpickles.com"
   gem.homepage = "http://github.com/technicalpickles/capistrano-mountaintop"
   gem.authors = ["Joshua Nichols"]
-  # Include your dependencies below. Runtime dependencies are required when using your gem,
-  # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
-  #  spec.add_runtime_dependency 'jabber4r', '> 0.1'
-  #  spec.add_development_dependency 'rspec', '> 1.2.3'
-  gem.add_development_dependency "rspec", ">= 2.0.0.beta.19"
-  gem.add_development_dependency "bundler", ">= 1.0.0.rc.5"
-  gem.add_development_dependency "jeweler", "~> 1.5.0.pre2"
-  gem.add_development_dependency "rcov", ">= 0"
+  gem.version = "0.1.0"
 end
-Jeweler::RubygemsDotOrgsTasks.new
+Jeweler::RubygemsDotOrgTasks.new
 
 require 'rspec/core'
 require 'rspec/core/rake_task'
