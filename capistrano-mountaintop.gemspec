@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Nichols"]
-  s.date = %q{2010-09-28}
+  s.date = %q{2010-10-01}
   s.description = %q{Announce capistrano deploys from a mountaintop with campfire}
   s.email = %q{josh@technicalpickles.com}
   s.extra_rdoc_files = [
@@ -24,7 +24,9 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.rdoc",
     "Rakefile",
+    "capistrano-mountaintop.gemspec",
     "lib/capistrano-mountaintop.rb",
+    "lib/capistrano/mountaintop.rb",
     "spec/.rspec",
     "spec/capistrano-mountaintop_spec.rb",
     "spec/spec_helper.rb",
@@ -46,6 +48,8 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<capistrano>, [">= 0"])
+      s.add_runtime_dependency(%q<capistrano-campfire>, [">= 0"])
+      s.add_runtime_dependency(%q<capistrano-log_with_awesome>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 2.0.0.beta.19"])
       s.add_development_dependency(%q<bundler>, [">= 1.0.0.rc.5"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.0.pre2"])
@@ -53,6 +57,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<capistrano-spec>, [">= 0"])
     else
       s.add_dependency(%q<capistrano>, [">= 0"])
+      s.add_dependency(%q<capistrano-campfire>, [">= 0"])
+      s.add_dependency(%q<capistrano-log_with_awesome>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 2.0.0.beta.19"])
       s.add_dependency(%q<bundler>, [">= 1.0.0.rc.5"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.0.pre2"])
@@ -61,6 +67,8 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<capistrano>, [">= 0"])
+    s.add_dependency(%q<capistrano-campfire>, [">= 0"])
+    s.add_dependency(%q<capistrano-log_with_awesome>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 2.0.0.beta.19"])
     s.add_dependency(%q<bundler>, [">= 1.0.0.rc.5"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.0.pre2"])

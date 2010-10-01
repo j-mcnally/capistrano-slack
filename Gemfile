@@ -1,6 +1,8 @@
 source :gemcutter
 
 gem "capistrano"
+gem "capistrano-campfire"
+gem "capistrano-log_with_awesome"
 
 group :development do
   gem "rspec", ">= 2.0.0.beta.19"
