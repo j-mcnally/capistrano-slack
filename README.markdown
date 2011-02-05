@@ -43,6 +43,19 @@ There's also some lines to add to config/deploy.rb:
       :ssl => true
     }
 
+capistrano-mountain tries to figure out who is deploying by running:
+
+    git config user.name
+
+If you don't want to use this behavior, you can set it explicitly, or use a configure a different way of determing it:
+
+    # hardcoded
+    set :deployer, 'Zim'
+    # use a different command
+    set :deployer, `whoami`.chomp
+
+## The final product
+
 With this in place, deploy in the normal fashion. As that's going on, you'll start seeing messages in the Campfire room: 
 
     Gir: Zim is deploying impending_doom's master to staging
