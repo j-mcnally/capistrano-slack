@@ -1,5 +1,12 @@
 # capistrano-mountaintop
 
+capistrano-mountaintop makes it easy to announce deployments to a [Campfire](http://campfirenow.com/) room.
+
+ * [Homepage](http://github.com/technicalpickles/mountaintop)
+ * [Report a bug](http://github.com/technicalpickles/mountaintop/issues)
+
+## The story
+
 > I just wanted to shout [about the deploy] from on top of a mountain. But I didn't have a mountain. I had [capistrano] and [a campfire room] - Ron Burgandy, but not really
 
 Deploys are kind of a big deal. Days, weeks, worth of code go live at last. Communication is always important, but it is particularly important when you need to get code out there.
@@ -8,11 +15,15 @@ Deploys are kind of a big deal. Days, weeks, worth of code go live at last. Comm
  * Everyone needs to know a deploy happening. If there is any impact following the deploy, it's important to know that a deploy happened recently and that it may be a cause of the problem
  * If the deploy goes wrong, it's crucial to easily share the logs for debugging purposes
 
-We use capistrano for deploying  and Campfire for our day to day communication, so improving our deployment to announce itself was the logical step.
+We use capistrano for deploying and Campfire for our day to day communication, so improving our deployment to announce itself was the logical step.
 
-Behold, capistrano-mountaintop!
+Behold, for this is what capistrano-mountaintop was born to do.
+
+## Install
 
     gem install capistrano-mountaintop
+
+## Configuration
 
 Since we're dealing with Campfire, we'll need to setup Campfire and the info to go along with it:
 
@@ -34,8 +45,8 @@ There's also some lines to add to config/deploy.rb:
 
 With this in place, deploy in the normal fashion. As that's going on, you'll start seeing messages in the Campfire room: 
 
-    Gir: Zim is deploying bostonrb's master to staging
-    Gir: INSERT FULL LOG HERE
+    Gir: Zim is deploying impending_doom's master to staging
+    Gir: <INSERT FULL LOG HERE>
 
 Boom. Instant team communication about deploys without having to, you know, communicate manually.
 
