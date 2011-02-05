@@ -1,6 +1,6 @@
 # capistrano-mountaintop
 
-> I just wanted to shout [about the deploy] from on top of a mountain. But I didn't have a mountain. I had [capistrano] and [a campfire room] - Ron Burgandy
+> I just wanted to shout [about the deploy] from on top of a mountain. But I didn't have a mountain. I had [capistrano] and [a campfire room] - Ron Burgandy, but not really
 
 Deploys are kind of a big deal. Days, weeks, worth of code go live at last. Communication is always important, but it is particularly important when you need to get code out there.
 
@@ -32,13 +32,12 @@ There's also some lines to add to config/deploy.rb:
       :ssl => true
     }
 
-With this in place, just deploy as you are used to. When you do, you'll start seeing messages in the Campfire room: 
+With this in place, deploy in the normal fashion. As that's going on, you'll start seeing messages in the Campfire room: 
 
-    Gir: Josh Nichols is deploying bostonrb's master to staging
+    Gir: Zim is deploying bostonrb's master to staging
     Gir: INSERT FULL LOG HERE
 
 Boom. Instant team communication about deploys without having to, you know, communicate manually.
-
 
 ## Note on Patches/Pull Requests
  
