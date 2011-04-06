@@ -64,4 +64,16 @@ describe Capistrano::Mountaintop, "loaded into capistrano" do
       @configuration.find_and_execute_task('mountaintop:campfire:finished')
     end
   end
+
+  context "scm with no branch" do
+    specify "mountaintop:announce:begin speaks the user deploying and the branch being deployed to production" do
+      @configuration.set(:deployer, "Zim")
+      @configuration.set(:application, "worlddomination")
+      @configuration.set(:scm, :none)
+      @campfire_room.should_receive(:speak).with("Zim is deploying worlddomination to production")
+
+      @configuration.find_and_execute_task('mountaintop:campfire:starting')
+    end
+
+  end
 end

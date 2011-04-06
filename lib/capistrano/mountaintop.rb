@@ -16,8 +16,14 @@ module Capistrano
             task :starting do
               announced_deployer = fetch(:deployer,  `git config user.name`.chomp)
               announced_stage = fetch(:stage, 'production')
+
+              announcement = if fetch(:branch, nil)
+                               "#{announced_deployer} is deploying #{application}'s #{branch} to #{announced_stage}"
+                             else
+                               "#{announced_deployer} is deploying #{application} to #{announced_stage}"
+                             end
               
-              campfire_room.speak "#{announced_deployer} is deploying #{application}'s #{branch} to #{announced_stage}"
+              campfire_room.speak announcement
             end
 
 
