@@ -28,7 +28,12 @@ module Capistrano
 
 
             task :finished do
-              campfire_room.paste fetch(:full_log)
+              begin
+                campfire_room.paste fetch(:full_log)
+              rescue Faraday::Error::ParsingError
+                # nah, it's cool. happens particularly when color is involved
+                # TODO sanitze full_log instead
+              end
             end
           end
         end
