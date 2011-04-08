@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{capistrano-mountaintop}
-  s.version = "1.0.1"
+  s.version = "1.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Nichols"]
-  s.date = %q{2011-04-06}
+  s.date = %q{2011-04-08}
   s.description = %q{Announce capistrano deploys from a mountaintop with campfire}
   s.email = %q{josh@technicalpickles.com}
   s.extra_rdoc_files = [
