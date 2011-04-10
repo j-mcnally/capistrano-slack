@@ -4,8 +4,7 @@ require 'capistrano/log_with_awesome'
 # TODO need to handle loading a bit beter. these would load into the instance if it's defined
 module Capistrano
   module Mountaintop
-    def self.load_into(configuration)
-
+    def self.extended(configuration)
       configuration.load do
 
         before 'deploy', 'mountaintop:campfire:starting'
@@ -31,8 +30,8 @@ module Capistrano
               begin
                 campfire_room.paste fetch(:full_log)
               rescue Faraday::Error::ParsingError
-                # nah, it's cool. happens particularly when color is involved
-                # TODO sanitze full_log instead
+                # FIXME deal with crazy color output instead of rescuing
+                # it's stuff like: ^[[0;33m and ^[[0m
               end
             end
           end
@@ -43,6 +42,6 @@ module Capistrano
 end
 
 if Capistrano::Configuration.instance
-  Capistrano::Mountaintop.load_into(Capistrano::Configuration.instance)
+  Capistrano::Configuration.instance.extend(Capistrano::Configuration.instance)
 end
   

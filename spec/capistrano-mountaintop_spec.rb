@@ -4,7 +4,7 @@ describe Capistrano::Mountaintop, "loaded into capistrano" do
   before do
     @configuration = Capistrano::Configuration.new
     @configuration.extend(Capistrano::Spec::ConfigurationExtension)
-    Capistrano::Mountaintop.load_into(@configuration)
+    @configuration.extend(Capistrano::Mountaintop)
 
     @campfire_room = mock('campfire room')
 
