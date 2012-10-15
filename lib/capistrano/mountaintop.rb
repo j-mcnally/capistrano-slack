@@ -42,6 +42,6 @@ module Capistrano
 end
 
 if Capistrano::Configuration.instance
-  Capistrano::Configuration.instance.extend(Capistrano::Configuration.instance)
+  Capistrano::Configuration.instance.extend(Capistrano::Mountaintop)
 end
   
