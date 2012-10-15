@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.email = "josh@technicalpickles.com"
   gem.homepage = "http://github.com/technicalpickles/capistrano-mountaintop"
   gem.authors = ["Joshua Nichols"]
-  gem.version = "1.1.0"
+  gem.version = "1.1.1"
 end
 Jeweler::RubygemsDotOrgTasks.new
 
