@@ -10,10 +10,15 @@ module Capistrano
         before 'deploy', 'mountaintop:campfire:starting'
         after 'deploy',  'mountaintop:campfire:finished'
 
+        set :deployer do
+          ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
+        end
+
+
         namespace :mountaintop do
           namespace :campfire do
             task :starting do
-              announced_deployer = fetch(:deployer,  `git config user.name`.chomp)
+              announced_deployer = fetch(:deployer)
               announced_stage = fetch(:stage, 'production')
 
               announcement = if fetch(:branch, nil)
