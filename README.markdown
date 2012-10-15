@@ -63,6 +63,25 @@ With this in place, deploy in the normal fashion. As that's going on, you'll sta
 
 Boom. Instant team communication about deploys without having to, you know, communicate manually.
 
+## Working with multiple accounts / rooms / etc
+
+It's sometimes useful to announce these deploys in multiple places, like if you are working with a consultancy or hosting company.
+
+capistrano-mountaintop uses [capistrano-campfire](https://github.com/technicalpickles/capistrano-campfire) under the hood, which supports this. You just need to change your `:campfire_options`. For example:
+
+    require 'capistrano/mountaintop'
+    set :campfire_options, :rooms => [{
+                                       :account => 'zim',
+                                       :room => 'World Conquest',
+                                       :token => '001000101110101001011112',
+                                     }, {
+                                       :account => 'swolleneyeballnetwork',
+                                       :room => 'Agents',
+                                       :token => '2001000101110101001011110',
+                                     }],
+                           :ssl => true
+
+
 ## Note on Patches/Pull Requests
  
 * Fork the project.
