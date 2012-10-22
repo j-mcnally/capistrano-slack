@@ -23,6 +23,10 @@ describe Capistrano::Mountaintop, "loaded into capistrano" do
     @configuration.should callback('mountaintop:campfire:starting').before('deploy')
   end
 
+  it "performs mountain:campfire:starting before deploy:migrations" do
+    @configuration.should callback('mountaintop:campfire:starting').before('deploy:migrations')
+  end
+
   it "performs mountain:announce:finished after deploy" do
     @configuration.should callback('mountaintop:campfire:finished').after('deploy')
   end
@@ -34,7 +38,7 @@ describe Capistrano::Mountaintop, "loaded into capistrano" do
       @configuration.set(:branch, "master")
       @configuration.set(:stage, "staging")
       @campfire_room.should_receive(:speak).with("Zim is deploying worlddomination's master to staging")
-      
+
       @configuration.find_and_execute_task('mountaintop:campfire:starting')
     end
 
@@ -55,7 +59,7 @@ describe Capistrano::Mountaintop, "loaded into capistrano" do
 
       @configuration.find_and_execute_task('mountaintop:campfire:starting')
     end
-      
+
 
     specify "mountaintop:announce:finish pastes the full log" do
       @configuration.set(:full_log, "I AM A LOG")
