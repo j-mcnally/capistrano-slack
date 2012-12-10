@@ -8,6 +8,7 @@ module Capistrano
       configuration.load do
 
         before 'deploy', 'mountaintop:campfire:starting'
+        before 'deploy:migrations', 'mountaintop:campfire:starting'
         after 'deploy',  'mountaintop:campfire:finished'
 
         set :deployer do
