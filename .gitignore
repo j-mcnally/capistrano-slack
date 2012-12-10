@@ -1,3 +1,6 @@
+# bundler binstubs 
+/bin/
+
 # rcov generated
 coverage
 
