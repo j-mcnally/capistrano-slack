@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "capistrano-mountaintop"
-  s.version = "1.1.2"
+  s.version = "1.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Nichols"]
-  s.date = "2012-10-15"
+  s.date = "2012-12-10"
   s.description = "Announce capistrano deploys from a mountaintop with campfire"
   s.email = "josh@technicalpickles.com"
   s.extra_rdoc_files = [
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "http://github.com/technicalpickles/capistrano-mountaintop"
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.10"
+  s.rubygems_version = "1.8.23"
   s.summary = "Announce capistrano deploys from a mountaintop with campfire"
 
   if s.respond_to? :specification_version then
