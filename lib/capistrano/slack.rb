@@ -33,7 +33,7 @@ module Capistrano
                              end
               uri = URI("https://#{slack_subdomain}.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
               res = Net::HTTP.post_form(uri, :payload => {'channel' => slack_room, 'username' => 'deploybot', 'text' => announcement, "icon_emoji" => ":ghost:"}.to_json)
-              
+              set(:start_time, Time.now)
             end
 
 
@@ -42,10 +42,14 @@ module Capistrano
                 slack_token = fetch(:slack_token)
                 slack_room = fetch(:slack_room)
                 slack_subdomain = fetch(:slack_subdomain)
-                log = fetch(:full_log)
                 return if slack_token.nil?
+                announced_deployer = fetch(:deployer)
+                end_time = Time.now
+                start_time = fetch(:start_time)
+                elapsed = end_time.to_i - start_time.to_i
+                msg = "#{announced_deployer} deployed #{application} successfully in #{elapsed} seconds."
                 uri = URI("https://#{slack_subdomain}.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
-                res = Net::HTTP.post_form(uri, :payload => {'channel' => slack_room, 'username' => 'deploybot', 'text' => log, "icon_emoji" => ":ghost:"}.to_json)
+                res = Net::HTTP.post_form(uri, :payload => {'channel' => slack_room, 'username' => 'deploybot', 'text' => msg, "icon_emoji" => ":ghost:"}.to_json)
               rescue Faraday::Error::ParsingError
                 # FIXME deal with crazy color output instead of rescuing
                 # it's stuff like: ^[[0;33m and ^[[0m
