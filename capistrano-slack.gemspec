@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version = "1.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Joshua Nichols"]
+  s.authors = ["Joshua Nichols", "Justin McNally"]
   s.date = "2012-12-10"
   s.description = "Announce capistrano deploys to slack"
   s.email = "josh@technicalpickles.com justin@kohactive.com"
