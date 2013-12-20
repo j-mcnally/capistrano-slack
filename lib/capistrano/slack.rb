@@ -21,6 +21,7 @@ module Capistrano
             task :starting do
               slack_token = fetch(:slack_token)
               slack_room = fetch(:slack_room)
+              slack_subdomain = fetch(:slack_subdomain)
               return if slack_token.nil?
               announced_deployer = fetch(:deployer)
               announced_stage = fetch(:stage, 'production')
@@ -30,7 +31,7 @@ module Capistrano
                              else
                                "#{announced_deployer} is deploying #{application} to #{announced_stage}"
                              end
-              uri = URI("https://kohactive.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
+              uri = URI("https://#{slack_subdomain}.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
               res = Net::HTTP.post_form(uri, :payload => {'channel' => slack_room, 'username' => 'deploybot', 'text' => announcement, "icon_emoji" => ":ghost:"}.to_json)
               
             end
@@ -40,9 +41,10 @@ module Capistrano
               begin
                 slack_token = fetch(:slack_token)
                 slack_room = fetch(:slack_room)
+                slack_subdomain = fetch(:slack_subdomain)
                 log = fetch(:full_log)
                 return if slack_token.nil?
-                uri = URI("https://kohactive.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
+                uri = URI("https://#{slack_subdomain}.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
                 res = Net::HTTP.post_form(uri, :payload => {'channel' => slack_room, 'username' => 'deploybot', 'text' => log, "icon_emoji" => ":ghost:"}.to_json)
               rescue Faraday::Error::ParsingError
                 # FIXME deal with crazy color output instead of rescuing
