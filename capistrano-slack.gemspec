@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "capistrano-slack.gemspec",
     "lib/capistrano-slack.rb",
-    "capistrano/slack.rb",
+    "lib/capistrano/slack.rb",
     "spec/.rspec",
     "spec/capistrano-slack_spec.rb",
     "spec/spec_helper.rb",
