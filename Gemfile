@@ -1,7 +1,6 @@
 source :gemcutter
 
 gem "capistrano"
-gem "capistrano-campfire", "~> 0.2.0"
 gem "capistrano-log_with_awesome", "~> 0.0.2"
 
 group :development do

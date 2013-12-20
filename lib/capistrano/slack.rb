@@ -1,24 +1,27 @@
 require 'capistrano'
-require 'capistrano/campfire'
+require 'capistrano/slack'
 require 'capistrano/log_with_awesome'
+require 'json'
 # TODO need to handle loading a bit beter. these would load into the instance if it's defined
 module Capistrano
-  module Mountaintop
+  module Slack
     def self.extended(configuration)
       configuration.load do
 
-        before 'deploy', 'mountaintop:campfire:starting'
-        before 'deploy:migrations', 'mountaintop:campfire:starting'
-        after 'deploy',  'mountaintop:campfire:finished'
+        before 'deploy', 'slack:starting'
+        before 'deploy:migrations', 'slack:starting'
+        after 'deploy',  'slack:finished'
 
         set :deployer do
           ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
         end
 
 
-        namespace :mountaintop do
-          namespace :campfire do
+        namespace :slack do
             task :starting do
+              slack_token = fetch(:slack_token)
+              slack_room = fetch(:slack_room)
+              return if slack_token.nil?
               announced_deployer = fetch(:deployer)
               announced_stage = fetch(:stage, 'production')
 
@@ -27,14 +30,20 @@ module Capistrano
                              else
                                "#{announced_deployer} is deploying #{application} to #{announced_stage}"
                              end
+              uri = URI("https://kohactive.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
+              res = Net::HTTP.post_form(uri, :payload => {'channel' => slack_room, 'username' => 'deploybot', 'text' => announcement, "icon_emoji" => ":ghost:"}.to_json)
               
-              campfire_room.speak announcement
             end
 
 
             task :finished do
               begin
-                campfire_room.paste fetch(:full_log)
+                slack_token = fetch(:slack_token)
+                slack_room = fetch(:slack_room)
+                log = fetch(:full_log)
+                return if slack_token.nil?
+                uri = URI("https://kohactive.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
+                res = Net::HTTP.post_form(uri, :payload => {'channel' => slack_room, 'username' => 'deploybot', 'text' => log, "icon_emoji" => ":ghost:"}.to_json)
               rescue Faraday::Error::ParsingError
                 # FIXME deal with crazy color output instead of rescuing
                 # it's stuff like: ^[[0;33m and ^[[0m
@@ -42,12 +51,11 @@ module Capistrano
             end
           end
         end
-      end
     end
   end
 end
 
 if Capistrano::Configuration.instance
-  Capistrano::Configuration.instance.extend(Capistrano::Mountaintop)
+  Capistrano::Configuration.instance.extend(Capistrano::Slack)
 end
   
