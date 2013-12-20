@@ -1,5 +1,4 @@
 require 'capistrano'
-require 'capistrano/slack'
 require 'capistrano/log_with_awesome'
 require 'json'
 # TODO need to handle loading a bit beter. these would load into the instance if it's defined
