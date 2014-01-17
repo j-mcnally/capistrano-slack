@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<capistrano>, [">= 0"])
+      s.add_runtime_dependency(%q<capistrano>, ["< 3.0.0"])
       s.add_runtime_dependency(%q<capistrano-log_with_awesome>, ["~> 0.0.2"])
       s.add_development_dependency(%q<rspec>, [">= 2.5.0"])
       s.add_development_dependency(%q<bundler>, [">= 1.0.9"])
@@ -49,7 +49,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<yard>, [">= 0"])
       s.add_development_dependency(%q<bluecloth>, [">= 0"])
     else
-      s.add_dependency(%q<capistrano>, [">= 0"])
+      s.add_dependency(%q<capistrano>, ["< 3.0.0"])
       s.add_dependency(%q<capistrano-log_with_awesome>, ["~> 0.0.2"])
       s.add_dependency(%q<rspec>, [">= 2.5.0"])
       s.add_dependency(%q<bundler>, [">= 1.0.9"])
@@ -59,7 +59,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bluecloth>, [">= 0"])
     end
   else
-    s.add_dependency(%q<capistrano>, [">= 0"])
+    s.add_dependency(%q<capistrano>, ["< 3.0.0"])
     s.add_dependency(%q<capistrano-log_with_awesome>, ["~> 0.0.2"])
     s.add_dependency(%q<rspec>, [">= 2.5.0"])
     s.add_dependency(%q<bundler>, [">= 1.0.9"])
