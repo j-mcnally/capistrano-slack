@@ -21,15 +21,18 @@ module Capistrano
             task :starting do
               slack_token = fetch(:slack_token)
               slack_room = fetch(:slack_room)
+              slack_emoji = fetch(:slack_emoji) || ":ghost:"
+              slack_username = fetch(:slack_username) || "deploybot"
+              slack_application = fetch(:slack_application) || application
               slack_subdomain = fetch(:slack_subdomain)
               return if slack_token.nil?
               announced_deployer = fetch(:deployer)
               announced_stage = fetch(:stage, 'production')
 
               announcement = if fetch(:branch, nil)
-                               "#{announced_deployer} is deploying #{application}'s #{branch} to #{announced_stage}"
+                               "#{announced_deployer} is deploying #{slack_application}'s #{branch} to #{announced_stage}"
                              else
-                               "#{announced_deployer} is deploying #{application} to #{announced_stage}"
+                               "#{announced_deployer} is deploying #{slack_application} to #{announced_stage}"
                              end
               
 
@@ -41,7 +44,7 @@ module Capistrano
 
               # Create the post request and setup the form data
               request = Net::HTTP::Post.new(uri.request_uri)
-              request.set_form_data(:payload => {'channel' => slack_room, 'username' => 'deploybot', 'text' => announcement, "icon_emoji" => ":ghost:"}.to_json)
+              request.set_form_data(:payload => {'channel' => slack_room, 'username' => slack_username, 'text' => announcement, "icon_emoji" => slack_emoji}.to_json)
 
               # Make the actual request to the API
               response = http.request(request)
