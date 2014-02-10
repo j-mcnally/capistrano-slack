@@ -57,6 +57,9 @@ module Capistrano
               begin
                 slack_token = fetch(:slack_token)
                 slack_room = fetch(:slack_room)
+                slack_emoji = fetch(:slack_emoji) || ":ghost:"
+		        slack_username = fetch(:slack_username) || "deploybot"
+		        slack_application = fetch(:slack_application) || application
                 slack_subdomain = fetch(:slack_subdomain)
                 return if slack_token.nil?
                 announced_deployer = fetch(:deployer)
@@ -64,7 +67,7 @@ module Capistrano
                 start_time = fetch(:start_time)
                 elapsed = end_time.to_i - start_time.to_i
               
-                msg = "#{announced_deployer} deployed #{application} successfully in #{elapsed} seconds."
+                msg = "#{announced_deployer} deployed #{slack_application} successfully in #{elapsed} seconds."
                 
                 # Parse the URI and handle the https connection
                 uri = URI.parse("https://#{slack_subdomain}.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
@@ -74,7 +77,7 @@ module Capistrano
 
                 # Create the post request and setup the form data
                 request = Net::HTTP::Post.new(uri.request_uri)
-                request.set_form_data(:payload => {'channel' => slack_room, 'username' => 'deploybot', 'text' => msg, "icon_emoji" => ":ghost:"}.to_json)
+                request.set_form_data(:payload => {'channel' => slack_room, 'username' => slack_username, 'text' => msg, "icon_emoji" => slack_emoji}.to_json)
                 
                 # Make the actual request to the API
                 response = http.request(request)
