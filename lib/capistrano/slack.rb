@@ -26,7 +26,7 @@ module Capistrano
               slack_application = fetch(:slack_application) || application
               slack_subdomain = fetch(:slack_subdomain)
               return if slack_token.nil?
-              announced_deployer = fetch(:deployer)
+              announced_deployer = ActiveSupport::Multibyte::Chars.new(fetch(:deployer)).mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
               announced_stage = fetch(:stage, 'production')
 
               announcement = if fetch(:branch, nil)
