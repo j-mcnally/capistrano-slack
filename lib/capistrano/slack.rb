@@ -40,7 +40,7 @@ module Capistrano
               uri = URI.parse("https://#{slack_subdomain}.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
               http = Net::HTTP.new(uri.host, uri.port)
               http.use_ssl = true
-              http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+              http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
               # Create the post request and setup the form data
               request = Net::HTTP::Post.new(uri.request_uri)
