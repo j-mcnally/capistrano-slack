@@ -2,6 +2,7 @@ require 'capistrano'
 require 'capistrano/log_with_awesome'
 require 'json'
 require 'net/http'
+require 'active_support/all'
 # TODO need to handle loading a bit beter. these would load into the instance if it's defined
 module Capistrano
   module Slack
@@ -26,7 +27,7 @@ module Capistrano
               slack_application = fetch(:slack_application) || application
               slack_subdomain = fetch(:slack_subdomain)
               return if slack_token.nil?
-              announced_deployer = ActiveSupport::Multibyte::Chars.new(fetch(:deployer)).mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
+              announced_deployer = ActiveSupport::Multibyte::Chars.new(fetch(:deployer)).mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/,'').to_s
               announced_stage = fetch(:stage, 'production')
 
               announcement = if fetch(:branch, nil)
