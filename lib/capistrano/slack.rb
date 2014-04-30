@@ -11,6 +11,7 @@ module Capistrano
 
         before 'deploy', 'slack:starting'
         before 'deploy:migrations', 'slack:starting'
+        before 'deploy:precompile_assets', 'slack:starting'
         after 'deploy',  'slack:finished'
         after 'deploy:migrations',  'slack:finished'
 
