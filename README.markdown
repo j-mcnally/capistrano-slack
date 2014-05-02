@@ -39,12 +39,12 @@ namespace :slack do
     namespace :migration do 
         task :start do 
             @migration_start_time = Time.now
-            msg = "#{random_emoji} Running Migrations"
+            msg = "Running Migrations"
             connect(msg)
         end
         task :end do 
             elapsed_time = Time.now.to_i - @migration_start_time.to_i   if @migration_start_time
-            msg = "#{random_emoji} Migrations finished in #{elapsed_time} seconds"
+            msg = "Migrations finished in #{elapsed_time} seconds"
             connect(msg)
         end
     end
