@@ -22,6 +22,12 @@ require 'capistrano/slack'
 set :slack_token, "webhook_token" # comes from inbound webhook integration
 set :slack_room, "#general"
 set :slack_subdomain, "kohactive" # if your subdomain is kohactive.slack.com
+set :slack_deploy_defaults, true #gem provides the standared before and after callbacks deploy:starting and deploy:finished deploy of set to false and provide your own. 
+#example slack:starting and slack:finished are the only defaults provided in the gem. 
+```ruby
+before 'deploy', 'slack:starting'
+after 'deploy',  'slack:finished'
+```
 
 # optional
 set :slack_application, "Rocketman"
