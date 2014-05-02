@@ -32,3 +32,23 @@ set :slack_emoji, ":rocket:"
 You can obtain your `webhook_token` from the integrations section of the team page in Slack.  
 
 https://kohactive.slack.com/services/new/incoming-webhook (if your subdomain is kohactive.slack.com)
+
+## Add custom messages to callbacks 
+```ruby
+namespace :slack do
+    namespace :migration do 
+        task :start do 
+            @migration_start_time = Time.now
+            msg = "#{random_emoji} Running Migrations"
+            connect(msg)
+        end
+        task :end do 
+            elapsed_time = Time.now.to_i - @migration_start_time.to_i   if @migration_start_time
+            msg = "#{random_emoji} Migrations finished in #{elapsed_time} seconds"
+            connect(msg)
+        end
+    end
+    before "deploy:migrate", "slack:migration:start"
+    after  "deploy:migrate", "slack:migration:end"
+```
+
