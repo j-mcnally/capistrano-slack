@@ -24,10 +24,10 @@ set :slack_room, "#general"
 set :slack_subdomain, "kohactive" # if your subdomain is kohactive.slack.com
 set :slack_deploy_defaults, true #gem provides the standared before and after callbacks deploy:starting and deploy:finished deploy of set to false and provide your own. 
 #example slack:starting and slack:finished are the only defaults provided in the gem. 
-```ruby
+
 before 'deploy', 'slack:starting'
 after 'deploy',  'slack:finished'
-```
+
 
 # optional
 set :slack_application, "Rocketman"
@@ -46,12 +46,12 @@ namespace :slack do
         task :start do 
             @migration_start_time = Time.now
             msg = "Running Migrations"
-            connect(msg)
+            slack_connect(msg)
         end
         task :end do 
             elapsed_time = Time.now.to_i - @migration_start_time.to_i   if @migration_start_time
             msg = "Migrations finished in #{elapsed_time} seconds"
-            connect(msg)
+            slack_connect(msg)
         end
     end
     before "deploy:migrate", "slack:migration:start"
