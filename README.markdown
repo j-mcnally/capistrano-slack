@@ -15,9 +15,10 @@ Once installed you can use the settings below in your Capistrano deploy.rb to co
 ## Push deployment messages to Slack
 
 ```ruby
-
+#in deploy/shared.rb add
 require 'capistrano/slack'
 
+#in deploy.rb 
 # required
 set :slack_token, "webhook_token" # comes from inbound webhook integration
 set :slack_room, "#general"
