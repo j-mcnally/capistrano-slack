@@ -38,6 +38,7 @@ module Capistrano
         # after 'deploy',  'slack:finished'
         # after 'deploy:migrations',  'slack:finished'
 
+
         set :deployer do
           ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
         end
