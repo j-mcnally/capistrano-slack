@@ -83,7 +83,7 @@ module Capistrano
                          "#{announced_deployer} deployed #{slack_application}"
                        end
                 msg << " with migrations" if slack_with_migrations
-                msg << " to #{announced_stage} successfully in #{elapsed} seconds."
+                msg << " to #{announced_stage} successfully in #{elapsed} seconds"
 
                 # Parse the URI and handle the https connection
                 uri = URI.parse("https://#{slack_subdomain}.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
