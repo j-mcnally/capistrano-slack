@@ -23,8 +23,7 @@ require 'capistrano/slack'
 set :slack_token, "webhook_token" # comes from inbound webhook integration
 set :slack_room, "#general"
 set :slack_subdomain, "kohactive" # if your subdomain is kohactive.slack.com
-set :slack_deploy_defaults, true #gem provides the standared before and after callbacks deploy:starting and deploy:finished deploy of set to false and provide your own. 
-#example slack:starting and slack:finished are the only defaults provided in the gem. 
+
 
 before 'deploy', 'slack:starting'
 after 'deploy',  'slack:finished'
@@ -34,6 +33,8 @@ after 'deploy',  'slack:finished'
 set :slack_application, "Rocketman"
 set :slack_username, "Elton John"
 set :slack_emoji, ":rocket:"
+set :slack_deploy_defaults, true #gem provides the standared before and after callbacks deploy:starting and deploy:finished deploy of set to false and provide your own. 
+#example slack:starting and slack:finished are the only defaults provided in the gem. 
 ```
 
 You can obtain your `webhook_token` from the integrations section of the team page in Slack.  
