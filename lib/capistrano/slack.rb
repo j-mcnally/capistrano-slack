@@ -26,7 +26,7 @@ module Capistrano
         http.request(request)
       end
       def slack_defaults 
-        if fetch(:slack_deploy_defaults) == true
+        if fetch(:slack_deploy_defaults, true) == true
           before 'deploy', 'slack:starting'
           before 'deploy:migrations', 'slack:starting'
           after 'deploy',  'slack:finished'
