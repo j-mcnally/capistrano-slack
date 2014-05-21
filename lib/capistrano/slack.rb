@@ -32,9 +32,10 @@ module Capistrano
               slack_username = fetch(:slack_username) || "deploybot"
               slack_application = fetch(:slack_application) || application
               slack_subdomain = fetch(:slack_subdomain)
+              slack_application_url = fetch(:slack_application_url, nil)
               return if slack_token.nil?
               announced_deployer = ActiveSupport::Multibyte::Chars.new(fetch(:deployer)).mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/,'').to_s
-              announced_stage = fetch(:stage, 'production')
+              announced_stage = slack_application_url || fetch(:stage, 'production')
 
               announcement = if fetch(:branch, nil)
                                "#{announced_deployer} is deploying #{slack_application}'s #{branch}"
