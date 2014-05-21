@@ -71,9 +71,10 @@ module Capistrano
                 slack_username = fetch(:slack_username) || "deploybot"
                 slack_application = fetch(:slack_application) || application
                 slack_subdomain = fetch(:slack_subdomain)
+                slack_application_url = fetch(:slack_application_url, nil)
                 return if slack_token.nil?
                 announced_deployer = fetch(:deployer)
-                announced_stage = fetch(:stage, 'production')
+                announced_stage = slack_application_url || fetch(:stage, 'production')
                 end_time = Time.now
                 start_time = fetch(:start_time)
                 elapsed = end_time.to_i - start_time.to_i
