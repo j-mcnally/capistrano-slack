@@ -53,7 +53,7 @@ module Capistrano
             @slack_subdomain = fetch(:slack_subdomain)
             return if slack_token.nil?
             @announced_deployer = ActiveSupport::Multibyte::Chars.new(fetch(:deployer)).mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/,'').to_s
-            @announced_stage = fetch(:stage, 'production')
+            @announced_stage = "#{fetch(:stage, 'production')} (#{fetch(:environment, "production")})"
             @elapsed = fetch(:elapsed, "")
 
             announcement = msg.call
