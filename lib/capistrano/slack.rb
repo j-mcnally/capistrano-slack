@@ -16,7 +16,9 @@ module Capistrano
         after 'deploy:migrations', 'slack:configure_for_migrations', 'slack:finished'
 
         set :deployer do
-          ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
+          uname = ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
+          uname = ENV['USER'] if uname.empty?
+          uname
         end
         set :slack_with_migrations, false
 
