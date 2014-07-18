@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "capistrano-slack"
-  s.version = "1.2.0"
+  s.version = "1.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Nichols", "Justin McNally"]
-  s.date = "2012-12-10"
+  s.date = "2014-07-18"
   s.description = "Announce capistrano deploys to slack"
   s.email = "josh@technicalpickles.com justin@kohactive.com"
   s.extra_rdoc_files = [
