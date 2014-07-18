@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.8.23"
   s.summary = "Announce capistrano deploys to slack"
 
-  s.add_dependency(%q<capistrano>, ["~> 2.15.5"])
+  s.add_dependency(%q<capistrano>)
   s.add_dependency(%q<capistrano-log_with_awesome>, ["~> 0.0.2"])
   s.add_dependency(%q<activesupport>, [">= 3"])
   s.add_development_dependency(%q<rspec>, [">= 2.5.0"])
