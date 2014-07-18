@@ -27,6 +27,8 @@ set :slack_subdomain, "kohactive" # if your subdomain is kohactive.slack.com
 set :slack_application, "Rocketman"
 set :slack_username, "Elton John"
 set :slack_emoji, ":rocket:"
+set :slack_application_url, "http://my-awesome-app.example.com"
+# set(:slack_application_url) { "http://{ fetch :domain_aliases }" }
 ```
 
 You can obtain your `webhook_token` from the integrations section of the team page in Slack.  
