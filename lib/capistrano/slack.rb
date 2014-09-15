@@ -40,7 +40,9 @@ module Capistrano
         
             
         set :deployer do
-          ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
+          ENV['GIT_AUTHOR_NAME'] ||
+          (git_user = `git config user.name`.chomp ; git_user if !git_user.empty?) ||
+          (require 'etc' ; etc_info = Etc.getpwnam(ENV['USER']) ; etc_info.gecos if etc_info)
         end
 
         namespace :slack do
