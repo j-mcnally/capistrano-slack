@@ -26,7 +26,7 @@ module Capistrano
           request.set_form_data(:payload => payload(message))
           http.request(request) 
         rescue SocketError => e 
-           puts "#{e.message}or slack may be down"
+           puts "#{e.message} or slack may be down"
          end
       end
       def slack_defaults 
