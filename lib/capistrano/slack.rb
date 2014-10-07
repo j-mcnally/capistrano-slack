@@ -36,14 +36,16 @@ module Capistrano
 
       def self.extended(configuration)
         configuration.load do
-          slack_defaults
-        
-            
-        set :deployer do
-          ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
-        end
 
-        namespace :slack do
+          before('deploy') do 
+            slack_defaults
+          end
+
+          set :deployer do
+            ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
+          end
+
+          namespace :slack do
             task :starting do
               return if slack_token.nil?
               announced_deployer = ActiveSupport::Multibyte::Chars.new(fetch(:deployer)).mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/,'').to_s
