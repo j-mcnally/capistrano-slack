@@ -10,20 +10,24 @@ module Capistrano
       def payload(announcement)
       {
         'channel' => fetch(:slack_room),
-        'username' => fetch(:slack_username), 
+        'username' => fetch(:slack_username, ''), 
         'text' => announcement, 
-        'icon_emoji' => fetch(:slack_emoji)
+        'icon_emoji' => fetch(:slack_emoji, '') 
         }.to_json
       end
 
       def slack_connect(message)
-        uri = URI.parse("https://#{fetch(:slack_subdomain)}.slack.com/services/hooks/incoming-webhook?token=#{fetch(:slack_token)}")
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        request = Net::HTTP::Post.new(uri.request_uri)
-        request.set_form_data(:payload => payload(message))
-        http.request(request)
+        begin
+          uri = URI.parse("https://#{fetch(:slack_subdomain)}.slack.com/services/hooks/incoming-webhook?token=#{fetch(:slack_token)}")
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          request = Net::HTTP::Post.new(uri.request_uri)
+          request.set_form_data(:payload => payload(message))
+          http.request(request) 
+        rescue SocketError => e 
+           puts "#{e.message} or slack may be down"
+         end
       end
       def slack_defaults 
         if fetch(:slack_deploy_defaults, true) == true
