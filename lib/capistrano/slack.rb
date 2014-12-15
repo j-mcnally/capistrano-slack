@@ -63,17 +63,12 @@ module Capistrano
               set(:start_time, Time.now)
             end
             task :finished do
-              begin
-                return if slack_token.nil?
-                announced_deployer = fetch(:deployer)
-                start_time = fetch(:start_time)
-                elapsed = Time.now.to_i - start_time.to_i
-                msg = "#{announced_deployer} deployed #{slack_application} successfully in #{elapsed} seconds." 
-                slack_connect(msg)
-              rescue Faraday::Error::ParsingError
-                # FIXME deal with crazy color output instead of rescuing
-                # it's stuff like: ^[[0;33m and ^[[0m
-              end
+              return if slack_token.nil?
+              announced_deployer = fetch(:deployer)
+              start_time = fetch(:start_time)
+              elapsed = Time.now.to_i - start_time.to_i
+              msg = "#{announced_deployer} deployed #{slack_application} successfully in #{elapsed} seconds." 
+              slack_connect(msg)
             end
           end
 
