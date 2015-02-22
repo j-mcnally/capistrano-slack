@@ -20,7 +20,7 @@ require 'capistrano/slack'
 
 #in deploy.rb 
 # required
-set :slack_token, "webhook_token" # comes from inbound webhook integration
+set :slack_webhook_url, "https://hooks.slack.com/services/T00000000/B00000000/000000000000000000000000" # Create WebHook to get webhook_url on https://subdomain.slack.com/services/new/incoming-webhook
 set :slack_room, "#general"
 set :slack_subdomain, "kohactive" # if your subdomain is kohactive.slack.com
 
