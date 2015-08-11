@@ -2,7 +2,7 @@
 
 ## Install
 
-Best way to install Capistrano Slack intergration is via Bundler.  
+Best way to install Capistrano Slack integration is via Bundler.  
 
 Add the following to your Gemfile, then run the `bundle` command to install the gem direct from the git repository
 
