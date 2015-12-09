@@ -3,24 +3,60 @@ require 'capistrano/log_with_awesome'
 require 'json'
 require 'net/http'
 require 'active_support/all'
-# TODO need to handle loading a bit beter. these would load into the instance if it's defined
+
 module Capistrano
   module Slack
-    def self.extended(configuration)
-      configuration.load do
 
+      def payload(announcement)
+      {
+        'channel' => fetch(:slack_room),
+        'username' => fetch(:slack_username, ''),
+        'text' => announcement,
+        'icon_emoji' => fetch(:slack_emoji, ''),
+        'parse' => fetch(:slack_parse, '')
+      }.to_json
+      end
 
-        before 'deploy:update', 'slack:starting'
-        before 'deploy:migrations', 'slack:configure_for_migrations', 'slack:starting'
-        after 'deploy',  'slack:finished'
-        after 'deploy:migrations', 'slack:configure_for_migrations', 'slack:finished'
+      def slack_webhook_url
+        fetch(:slack_webhook_url)
+      end
 
-        set :deployer do
-          uname = ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
-          uname = ENV['USER'] if uname.empty?
-          uname
+      def slack_connect(message)
+        begin
+          uri = URI.parse(slack_webhook_url)
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          request = Net::HTTP::Post.new(uri.request_uri)
+          request.set_form_data(:payload => payload(message))
+          http.request(request)
+        rescue SocketError => e
+           puts "#{e.message} or slack may be down"
+         end
+      end
+
+      def slack_defaults
+        if fetch(:slack_deploy_defaults, true) == true
+          before 'deploy', 'slack:starting'
+          before 'deploy:migrations', 'slack:starting'
+          after 'deploy', 'slack:finished'
+          after 'deploy:migrations', 'slack:finished'
         end
-        set :slack_with_migrations, false
+      end
+
+      def self.extended(configuration)
+        configuration.load do
+
+          before 'deploy:update', 'slack:starting'
+          before 'deploy:migrations', 'slack:configure_for_migrations', 'slack:starting'
+          after 'deploy',  'slack:finished'
+          after 'deploy:migrations', 'slack:configure_for_migrations', 'slack:finished'
+
+          set :deployer do
+            uname = ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
+            uname = ENV['USER'] if uname.empty?
+            uname
+          end
 
         deploy_failed_msg = lambda do
           announcement = "#{@announced_deployer} cancelled deployment of #{@slack_application}"
@@ -89,7 +125,6 @@ module Capistrano
               send_slack(deploy_start_msg)
               set(:start_time, Time.now)
             end
-
 
             task :finished do
               end_time = Time.now
