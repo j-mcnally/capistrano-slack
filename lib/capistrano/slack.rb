@@ -54,13 +54,19 @@ module Capistrano
             ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp
           end
 
+          set :commitmsg do
+            if branch = fetch(:branch, nil)
+              `git log --pretty=oneline -n 1 #{branch}`.chomp
+            end
+          end
+
           namespace :slack do
             task :starting do
               announced_deployer = ActiveSupport::Multibyte::Chars.new(fetch(:deployer)).mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/,'').to_s
               msg = if fetch(:branch, nil)
                 "#{announced_deployer} is deploying #{fetch(:application)}'s #{branch} to #{fetch(:stage, 'production')}"
               else
-                "#{announced_deployer} is deploying #{fetch(:application)} to #{fetch(:stage, 'production')}"
+                "#{announced_deployer} is deploying #{fetch(:application)} to #{fetch(:stage, 'production')}."
               end
 
               slack_connect(msg)
@@ -78,6 +84,9 @@ module Capistrano
                   msg << "."
                 end
                 slack_connect(msg)
+
+                commitmsg = ActiveSupport::Multibyte::Chars.new(fetch(:commitmsg)).mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/,'').to_s
+                slack_connect("#{fetch(:application)} #{fetch(:stage, 'production')} is now at #{commitmsg}")
               end
             end
           end
