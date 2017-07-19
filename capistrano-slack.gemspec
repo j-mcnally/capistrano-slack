@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "capistrano-slack"
-  s.version = "1.3.2"
+  s.version = "1.3.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Joshua Nichols", "Justin McNally"]
@@ -38,7 +38,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency(%q<capistrano>)
   s.add_dependency(%q<capistrano-log_with_awesome>, ["~> 0.0.2"])
-  s.add_dependency(%q<activesupport>, [">= 3"])
+  s.add_dependency(%q<activesupport>, ["~> 3"])
+  s.add_dependency(%q<rack>, ["~> 1"])
   s.add_development_dependency(%q<rspec>, [">= 2.5.0"])
   s.add_development_dependency(%q<bundler>, [">= 1.0.9"])
   s.add_development_dependency(%q<jeweler>, ["~> 1.8.0"])
